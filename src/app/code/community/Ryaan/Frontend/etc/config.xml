@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Ryaan_BundleThumbnails>
+            <version>1.0.0</version>
+        </Ryaan_BundleThumbnails>
+    </modules>
+    <global>
+        <blocks>
+            <bundle>
+                <rewrite>
+                    <catalog_product_view_type_bundle_option_radio>Ryaan_BundleThumbnails_Block_Option_Radio</catalog_product_view_type_bundle_option_radio>
+                    <catalog_product_view_type_bundle_option_checkbox>Ryaan_BundleThumbnails_Block_Option_Checkbox</catalog_product_view_type_bundle_option_checkbox>
+                </rewrite>
+            </bundle>
+        </blocks>
+    </global>
+</config>

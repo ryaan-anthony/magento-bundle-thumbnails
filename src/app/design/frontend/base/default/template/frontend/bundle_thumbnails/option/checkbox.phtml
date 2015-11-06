@@ -1,0 +1,67 @@
+<?php
+/**
+ * @var Ryaan_BundleThumbnails_Block_Bundle_Option_Checkbox $this
+ */
+?>
+
+<?php $_option = $this->getOption() ?>
+
+<?php /** @var Mage_Catalog_Model_Product[] $selections */ ?>
+
+<?php $selections = $_option->getSelections() ?>
+
+<dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->escapeHtml($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label></dt>
+
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+
+    <div class="input-box">
+
+    <?php if (count($selections) == 1 && $_option->getRequired()): ?>
+
+        <img src="<?php echo $this->getProductImage($selections[0])->resize(75) ?>" class="checkbox label" width="75" height="75" />
+
+        <?php echo $this->getSelectionQtyTitlePrice($selections[0]) ?>
+
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $selections[0]->getSelectionId() ?>"/>
+
+    <?php else:?>
+
+        <ul class="options-list">
+
+            <?php foreach($selections as $selection): ?>
+
+                <li>
+
+                    <input onclick="bundle.changeSelection(this)" class="change-container-classname checkbox bundle-option-<?php echo $_option->getId() ?> <?php if ($_option->getRequired()) echo 'validate-one-required-by-name' ?>" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $selection->getSelectionId() ?>" type="checkbox" name="bundle_option[<?php echo $_option->getId() ?>][]"<?php if ($this->_isSelected($selection)) echo ' checked="checked"' ?><?php if (!$selection->isSaleable()) echo ' disabled="disabled"' ?> value="<?php echo $selection->getSelectionId() ?>"/>
+
+                    <span class="label">
+
+                        <label for="bundle-option-<?php echo $_option->getId() ?>-<?php echo $selection->getSelectionId() ?>">
+
+                            <img src="<?php echo $this->getProductImage($selection)->resize(75) ?>" class="checkbox label" width="75" height="75" />
+
+                            <?php echo $this->getSelectionQtyTitlePrice($selection) ?>
+
+                        </label>
+
+                    </span>
+
+                    <?php if($_option->getRequired()): ?>
+
+                        <?php echo $this->setValidationContainer('bundle-option-'.$_option->getId().'-'.$selection->getSelectionId(), 'bundle-option-'.$_option->getId().'-container') ?>
+
+                    <?php endif; ?>
+
+                </li>
+
+            <?php endforeach; ?>
+
+        </ul>
+
+        <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
+
+    <?php endif; ?>
+
+    </div>
+
+</dd>
